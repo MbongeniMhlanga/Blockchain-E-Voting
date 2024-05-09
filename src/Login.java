@@ -11,7 +11,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
+/**
+ * @author Mbongeni Mhlanga
+ * @version Mini Project
+ *
+ */
 public class Login extends GridPane {
     // Variables
     GridPane myPane;
@@ -101,10 +105,11 @@ public class Login extends GridPane {
                     System.out.println("User Logged In as: " + userEmail);
                     if(userRadio.isSelected()) {
                     	 stage.setScene(votePageScene);
+                    	 stage.show();
                     	 
                     // Navigate to Vote Officer page
                     }else {
-                    	stage.setScene(officerScene);
+                    	stage.show();
                     }
                    
                 } else {

@@ -142,6 +142,7 @@ public class Register extends StackPane {
         // Button For Logging In
         btnLogin.setOnAction(e -> {
             stage.setScene(logScene);
+            //stage.show();
         });
     }
     
