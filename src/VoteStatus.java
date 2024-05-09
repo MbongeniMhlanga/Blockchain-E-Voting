@@ -20,6 +20,8 @@ public class VoteStatus extends StackPane {
 
         // Create the label for the confirmation message
         Label lblConfirmation = new Label("Vote Casted \u2713"); // Unicode character for tick symbol
+       String show;
+       //Label lblVoterID = new Label(show.getVoterId());
         lblConfirmation.setFont(new Font("Arial", 24));
         lblConfirmation.setTextFill(Color.BLACK);
 
@@ -43,6 +45,7 @@ public class VoteStatus extends StackPane {
         	Scene regScene1 = new Scene(registerPane); // Initialize regScene here
             stage.setScene(regScene1); // Navigate to the register scene
             stage.setTitle("Register"); // Set the title to "Register" if needed
+            stage.show();
         });
 
         // Create an exit button
