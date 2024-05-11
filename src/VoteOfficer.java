@@ -12,14 +12,21 @@ import javafx.stage.Stage;
 public class VoteOfficer extends StackPane {
      Stage stage;
      Scene loginScene;
-    // Ballot ballot;
+     Ballot<?> ballot;
 
-    public VoteOfficer(Stage stage, Scene loginScene, Ballot ballot) {
+    public VoteOfficer(Stage stage, Scene loginScene, Ballot<?> ballot) {
         this.stage = stage;
         this.loginScene = loginScene;
-       // this.ballot = ballot;
+       this.ballot = ballot;
 
-        // Create the label to display the number of votes
+       
+       officerGUI();
+       
+    }
+    
+    public void officerGUI() {
+    	
+    	 // Create the label to display the number of votes
         Label votesLabel = new Label("Number of Votes: " + ballot.getNumberOfVotes());
         votesLabel.setFont(new Font("Arial", 24));
         votesLabel.setTextFill(Color.BLACK);
@@ -48,5 +55,10 @@ public class VoteOfficer extends StackPane {
 
         // Set the size of the StackPane
         setPrefSize(300, 200);
+        
+       // List numberOfVotes = ballot.getVotes();
+        //System.out.println("Number of votes stored in the ballot: " + numberOfVotes);
+    	
+    	
     }
 }

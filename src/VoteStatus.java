@@ -38,15 +38,15 @@ public class VoteStatus extends StackPane {
         getChildren().addAll(circle, lblConfirmation);
 
      // Create a login button
-        Button btnRegister = new Button("Register");
+       // Button btnRegister = new Button("Register");
         // Button For Logging In
-        btnRegister.setOnAction(e -> {
-        	Register registerPane = new Register(stage, regScene); // Assuming stage and regScene are properly initialized
-        	Scene regScene1 = new Scene(registerPane); // Initialize regScene here
-            stage.setScene(regScene1); // Navigate to the register scene
-            stage.setTitle("Register"); // Set the title to "Register" if needed
-            stage.show();
-        });
+       //btnRegister.setOnAction(e -> {
+        //	Register registerPane = new Register(stage, regScene); // Assuming stage and regScene are properly initialized
+        	//Scene regScene1 = new Scene(registerPane); // Initialize regScene here
+          //  stage.setScene(regScene1); // Navigate to the register scene
+           // stage.setTitle("Register"); // Set the title to "Register" if needed
+           // stage.show();
+       // });
 
         // Create an exit button
         Button btnExit = new Button("Exit");
@@ -56,7 +56,7 @@ public class VoteStatus extends StackPane {
         });
 
         // Add the login and exit buttons to a VBox
-        VBox buttonsBox = new VBox(10, btnRegister, btnExit);
+        VBox buttonsBox = new VBox(10, btnExit);
         buttonsBox.setAlignment(Pos.BOTTOM_RIGHT);
         buttonsBox.setPadding(new Insets(10));
 
