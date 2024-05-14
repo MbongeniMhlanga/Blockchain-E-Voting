@@ -14,6 +14,10 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * @author Mbongeni Mhlanga 
+ *@version Mini Project
+ */
 
 public class Register extends StackPane {
 
@@ -26,7 +30,7 @@ public class Register extends StackPane {
     GridPane myPane;
     Button btnRegister;
     Button btnLogin;
-    private TextField txtName, txtEmail, txtSurname;// For Registering Credentials
+    private TextField txtName, txtEmail, txtSurname;
     private Label lblName, lblEmail, lblSurname, lblCreatePass, lblReEnterPass, lblQuestion;
 
     /**
@@ -103,18 +107,28 @@ public class Register extends StackPane {
         btnRegister.setOnAction(e -> {
             String userName = txtName.getText();
             String userSurname = txtSurname.getText();
-            String contact = txtEmail.getText();
+            String email = txtEmail.getText();
             String createPass = txtCreatePass.getText();
             String reEnterPass = txtReEnterPass.getText();
             String role = roleComboBox.getValue();
 
-
             //Initialising a user
-            User user = new User(userName, userSurname, contact, createPass, role);
-            fhandler.writeUser(user);
+            User user = new User(userName, userSurname, email, createPass, role);
+
+            // Check if the user already exists
+            if (fhandler.userExists(user)) {
+                // User already exists, show alert
+                alert.setTitle("Registration");
+                alert.setHeaderText(null);
+                alert.setContentText(user.getUserName() + " already exists in the system.");
+
+                // Display the alert dialog
+                alert.showAndWait();
+                return; // Stop further processing
+            }
+
             // Validate if all fields are filled
             if (user != null) {
-
                 // Validate if passwords match
                 if (!createPass.equals(reEnterPass)) {
                     // Handle password mismatch
@@ -124,12 +138,16 @@ public class Register extends StackPane {
                 // Set the title and content text
                 alert.setTitle("Registration");
                 alert.setHeaderText(null);
-                alert.setContentText(user.userName + " has registered successfully");
+                alert.setContentText(user.getUserName() + " has registered successfully");
 
                 // Display the alert dialog
                 alert.showAndWait();
-                System.out.println(user.userName + " has registered successfully");
+                System.out.println(user.getUserName() + " has registered successfully");
 
+                // Write the user to file
+                fhandler.writeUser(user);
+
+                // Show login scene
                 Login log = new Login();
                 Scene loginScene = new Scene(log, 300, 300);
                 Stage logStage = new Stage();
@@ -137,10 +155,7 @@ public class Register extends StackPane {
                 logStage.setTitle("Login");
                 logStage.show();
                 loginScene.getRoot().setStyle("-fx-background-color: lavender;");
-                return;
             }
-
-
         });
 
 

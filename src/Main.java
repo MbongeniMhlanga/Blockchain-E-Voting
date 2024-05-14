@@ -1,5 +1,3 @@
-import acsse.csc03a3.Blockchain;
-import acsse.csc03a3.Transaction;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -14,11 +12,7 @@ public class Main<T> extends Application {
     Stage stage;
     Scene logScene;
     Scene regScene;
-    Scene votePageScene;
     Scene officerScene;
-    Blockchain<T> blockchain = new Blockchain<>();
-    Transaction<T> transaction;
-   
 
     public static void main(String[] args) {
         launch(args);

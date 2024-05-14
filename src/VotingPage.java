@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import acsse.csc03a3.Block;
 import acsse.csc03a3.Blockchain;
 import acsse.csc03a3.Transaction;
@@ -14,6 +13,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+/**
+ * @author Mbongeni Mhlanga 
+ *@version Mini Project
+ */
 
 public class VotingPage<T> extends GridPane {
     Stage stage;
@@ -68,7 +72,7 @@ public class VotingPage<T> extends GridPane {
         btnSubmit.setOnAction(e -> {
             String selectedParty = partyComboBox.getValue();
              voterId = UUID.randomUUID().toString();
-            int votingChoice = partyComboBox.getSelectionModel().getSelectedIndex() + 1;
+           // int votingChoice = partyComboBox.getSelectionModel().getSelectedIndex() + 1;
             if (selectedParty != null) {
                 // Cast vote using Ballot instance
                 ballot.castVote(voterId, selectedParty);
@@ -84,7 +88,7 @@ public class VotingPage<T> extends GridPane {
                 System.out.println("Please select a party.");
             }
 
-            Transaction<String> trans = new Transaction(voterId, selectedParty, votingChoice);
+            Transaction<String> trans = new Transaction(voterId, selectedParty, ballot);
             broadcastTransaction((Transaction<String>) trans);
         });
 
