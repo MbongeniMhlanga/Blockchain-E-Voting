@@ -7,15 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Mbongeni
- *
+ * @author Mbongeni Mhlanga 
+ *@version Mini Project
  */
 public class FileHandler {
 	public void writeUser(User user) {
-        List<User> userList = new ArrayList<>(); // Read existing users
-        userList.add(user); // Add the new user to the list
+		 // Read all the existing users (both voters and officers)
+        List<User> userList = new ArrayList<>();
+        
+     // Add the new user to the list(both voters and officers)
+        userList.add(user); 
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("userdatabase.dat"))) {
-            oos.writeObject(userList); // Write the updated list back to the file
+        	// Write the updated list back to the userdatabase
+            oos.writeObject(userList); 
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -28,7 +32,8 @@ public class FileHandler {
 	    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("userdatabase.dat"))) {
 	        Object obj = ois.readObject();
 	        if (obj instanceof List<?>) {
-	            users = (List<User>) obj; // Cast the object to a list of users
+	        	// Casting the object to a list of users(voters and officers)
+	            users = (List<User>) obj; 
 	        }
 	    } catch (IOException | ClassNotFoundException e) {
 	        e.printStackTrace();

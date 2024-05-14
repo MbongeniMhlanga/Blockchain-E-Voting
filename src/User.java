@@ -1,18 +1,29 @@
 import java.io.Serializable;
 
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ToggleGroup;
-
 /**
- * 
- */
-
-/**
- * @author Mbongeni
- *
+ * @author Mbongeni Mhlanga 
+ *@version Mini Project
  */
 public class User implements Serializable {
 
+
+	String userName ;
+     String userSurname ;
+     String email;
+ 	String createPass ;
+    // String userID;
+	String role;
+
+	public User(String userName, String userSurname, String email, String createPass , String role) {
+		super();
+		this.userName = userName;
+		this.userSurname = userSurname;
+		this.email = email;
+		this.createPass = createPass;
+		this.role = role;
+	}
+	
+	//Getters and Setters
 	 /**
 	 * 
 	 */
@@ -44,14 +55,14 @@ public class User implements Serializable {
 	/**
 	 * @return the contact
 	 */
-	public String getContact() {
-		return contact;
+	public String getEmail() {
+		return email;
 	}
 	/**
 	 * @param contact the contact to set
 	 */
-	public void setContact(String contact) {
-		this.contact = contact;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	/**
 	 * @return the createPass
@@ -65,32 +76,18 @@ public class User implements Serializable {
 	public void setCreatePass(String createPass) {
 		this.createPass = createPass;
 	}
-	String userName ;
-     String userSurname ;
-     String contact;
-     @SuppressWarnings("rawtypes")
-	String role;
-     /**
+	
+    /**
 	 * @return the group
 	 */
-	public String getGroup() {
+	public String getRole() {
 		return role;
 	}
 	/**
 	 * @param group the group to set
 	 */
-	public void setGroup(String role) {
+	public void setRole(String role) {
 		this.role = role;
 	}
-	public User(String userName, String userSurname, String contact, String createPass , String role) {
-		super();
-		this.userName = userName;
-		this.userSurname = userSurname;
-		this.contact = contact;
-		this.createPass = createPass;
-		this.role = role;
-	}
-	String createPass ;
-     //String reEnterPass ;
 
 }
