@@ -25,7 +25,10 @@ public class FileHandler {
         }
     }
 
-	
+	/**
+	 * 
+	 * @return users
+	 */
 	@SuppressWarnings("unchecked")
 	public List<User> readUsers() {
 	    List<User> users = new ArrayList<>();
@@ -40,4 +43,26 @@ public class FileHandler {
 	    }
 	    return users;
 	}
+	/**
+	 * 
+	 * @param userToCheck
+	 * @return boolean
+	 */
+	public boolean userExists(User userToCheck) {
+        // Read all existing users from the file
+        List<User> users = readUsers();
+
+        // Iterate through the list of users
+        for (User user : users) {
+            // Check if the user details match the details of userToCheck
+            if (user.getUserName().equals(userToCheck.getUserName()) &&
+                user.getUserSurname().equals(userToCheck.getUserSurname()) &&
+                user.getEmail().equals(userToCheck.getEmail())) {
+                // User with matching details found
+                return true;
+            }
+        }
+        // User not found
+        return false;
+    }
 }

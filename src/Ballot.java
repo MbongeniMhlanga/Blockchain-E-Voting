@@ -3,6 +3,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Mbongeni Mhlanga 
+ *@version Mini Project
+ */
+
 public class Ballot<T> {
 	private static Ballot<?> instance; // Singleton instance
 	private List<MyTransactions> votes;
@@ -22,7 +27,7 @@ public class Ballot<T> {
     public static synchronized Ballot<MyTransactions> getInstance() {
     	if (instance == null) {
     		instance = new Ballot<Object>();
-    		System.out.println("New Ballot instance created");
+    		//System.out.println("New Ballot instance created");
     	} else {
     		System.out.println("Returning existing Ballot instance");
     	}
@@ -35,10 +40,7 @@ public class Ballot<T> {
  		votesMap.put(voteTransaction.getVoterId(), voteTransaction.getSelectedParty()); // Update the HashMap here
  		System.out.println("Vote added: " + voteTransaction.getVoterId() + ", " + voteTransaction.getSelectedParty());
  		System.out.println("Vote added to list: " + voteTransaction); // Add this line
- 		
-
  	}
-
 
 
     // Method to cast a vote with voter ID and selected party
@@ -48,24 +50,22 @@ public class Ballot<T> {
         
         // Add the vote to the list of votes
         addVote(voteTransaction);
-        
-        System.out.println("Vote casted: " + voteTransaction); // Add this line
-    
+
 
     }
 
     // Method to get the number of votes
     public int getNumberOfVotes() {
-    	System.out.println("Votes list: " + votes); // Add this line
+    	System.out.println("Votes list: " + votes); 
 
         return votes.size();
     }
 
  // Method to get the map of votes (voterId -> selectedParty)
  	public Map<String, String> getVotesMap() {
- 		System.out.println("Votes map: " + votesMap); // Add this line
+ 		System.out.println("Votes map: " + votesMap);
 
- 		return votesMap; // Return the existing HashMap
+ 		return votesMap; 
  	}
 
 

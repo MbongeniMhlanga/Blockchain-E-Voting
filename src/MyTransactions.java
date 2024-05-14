@@ -1,3 +1,8 @@
+/**
+ * @author Mbongeni Mhlanga 
+ *@version Mini Project
+ */
+
 class MyTransactions {
     private String voterId;
     private String selectedParty;
@@ -6,7 +11,6 @@ class MyTransactions {
         this.voterId = voterId;
         this.selectedParty = selectedParty;
     }
-
  
 	public String getVoterId() {
         return voterId;
