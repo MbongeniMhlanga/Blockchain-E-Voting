@@ -1,9 +1,8 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
+import java.util.List;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -26,17 +25,18 @@ public class Login extends GridPane {
     TextField txtEmail;// For Login Credentials
     private Label lblPassword, lblEmail, lblTitle;
     PasswordField txtPassword;
-    private RadioButton userRadio, adminRadio;
+    private RadioButton userRadio;
+	FileHandler fhandler = new FileHandler();
+	
+	  Alert alert = new Alert(AlertType.INFORMATION);
+
+      
 
     /**
      * VotingPane Constructor
      * @param officerScene 
      */
-    public Login(Stage v2Stage, Scene votePageScene, Scene officerScene) {
-
-        stage = v2Stage;
-        this.votePageScene = votePageScene;
-        this.officerScene = officerScene;
+    public Login() {
 
         // GridPane
         myPane = new GridPane();
@@ -74,52 +74,90 @@ public class Login extends GridPane {
 
         // Button For Logging In
         btnLogin.setOnAction(e -> {
-            String userEmail = txtEmail.getText();
-            String userPass = txtPassword.getText();
+            try {
+		        List<User> users = fhandler.readUsers();
+		        String userEmail = txtEmail.getText();
+	            String userPass = txtPassword.getText();
+              
+		        // Find the user in the list with the matching username
+		        User user = users.stream()
+		                         .filter(u -> u.getEmail().equals(userEmail))
+		                         .findFirst()
+		                         .orElse(null);
 
-            // Checking if the fields are empty
-            if (userEmail.isEmpty() || userPass.isEmpty()) {
-                System.out.println("The Fields Are Please Enter Correct Credentials!!!!!!!");
-                return;
-            }
+		        if (user != null && user.getCreatePass().equals(userPass)) {
+		        	
+		        	// Set the title and content text
+		            alert.setTitle("Login");
+		            alert.setHeaderText(null); // Optional header text
+		            alert.setContentText(user.email + " has Logged in successfully");
 
-            // Reading user information from the database.txt file
-            try (BufferedReader reader = new BufferedReader(new FileReader("database.txt"))) {
-                String line;
-                boolean found = false;
-                while ((line = reader.readLine()) != null) {
-                    // Splitting the line into fields
-                    String[] fields = line.split(",");
-                    // Checking if email and password match
-                    if (fields.length == 5 && fields[2].equals(userEmail) && fields[3].equals(userPass)) {
+		            // Display the alert dialog
+		            alert.showAndWait();
+		            System.out.println("Login successful!");
+		            // Proceed with opening the user's role-specific page
+		         // Check user's role and open the corresponding page
+					if ("Voter".equals(user.getRole())) {
+						@SuppressWarnings("rawtypes")
+						VotingPage voting = new VotingPage(user);
+						Scene votingScene = new Scene(voting, 300, 250);
+						Stage votingStage = new Stage();
+						votingStage.setScene(votingScene);
+						votingStage.setTitle("Voting Page");
+						votingScene.getRoot().setStyle("-fx-background-color: lavender;");
+						votingStage.show();
+						
+					} else if ("VoteOfficer".equals(user.getRole())) {
+						VoteOfficer officer = new VoteOfficer(user);
+						Scene offScene = new Scene(officer, 800, 500);
+						Stage offStage = new Stage();
+						offStage.setScene(offScene);
+						offStage.setTitle("Vote Officer");
+						offScene.getRoot().setStyle("-fx-background-color: lavender;");
+						offStage.show();
+					}
+					
+		        } else {
+		        	// Set the title and content text
+		            alert.setTitle("Login");
+		            alert.setHeaderText(null); // Optional header text
+		            alert.setContentText("Invalid credentials! , please enter the correct details");
 
-                        // If the user is found, set found to true and break the loop
-                        found = true;
-                        System.out.println("User Logged In as: " + fields[4]);
-
-                        break;
-                    }
-                }
-                if (found) {
-                    // Navigate to voter page
-                    System.out.println("User Logged In as: " + userEmail);
-                    if(userRadio.isSelected()) {
-                    	 stage.setScene(votePageScene);
-                    	 stage.show();
-                    	 
-                    // Navigate to Vote Officer page
-                    }else {
-                    	stage.show();
-                    }
-                   
-                } else {
-                    System.out.println("Incorrect Login Credentials");
-                }
-
-            } catch (IOException ex) {
-                // Handle file reading errors
-                ex.printStackTrace();
-            }
+		            // Display the alert dialog
+		            alert.showAndWait();
+		            System.out.println("Invalid credentials!");
+					
+				} 
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}  
         });
+
     }
+    
+    // Accessors and Mutators
+    public String getEmail() {
+        return txtEmail.getText();
+    }
+
+    public String getPassword() {
+        return txtPassword.getText();
+    }
+
+    public RadioButton getUserRadio() {
+        return userRadio;
+    }
+
+    public void setEmail(String email) {
+        txtEmail.setText(email);
+    }
+
+    public void setPassword(String password) {
+        txtPassword.setText(password);
+    }
+
+    public void setUserRadio(RadioButton userRadio) {
+        this.userRadio = userRadio;
+    }
+    
 }
